@@ -1,3 +1,4 @@
 [submodule "libvpx"]
 	path = libvpx
 	url = https://github.com/webmproject/libvpx.git
+	ignore = dirty
