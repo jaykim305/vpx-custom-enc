@@ -92,12 +92,13 @@
         },
 
         {
-            "name": "my encoder",
+            "name": "vpxenc live",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/build/vpxenc",
             "args": [   "../Hearthstone.yuv",
                         "-o", "${workspaceFolder}/output/live_vp9.webm", 
+                        "-v",
                         "--codec=vp9",
                         "--i420",
                         "-w", "1920",
@@ -137,8 +138,34 @@
                     "ignoreFailures": true
                 }
             ],
-            "preLaunchTask": "libvpx build",
+            "preLaunchTask": "cmake build",
             "miDebuggerPath": "/usr/bin/gdb"
         },
+        {
+            "name": "my_vpxenc live",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/my_vpxenc",
+            "args": [ ],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [
+                {
+                    "name": "LD_LIBRARY_PATH",
+                    "value": "${workspaceFolder}/libvpx/"
+                }
+            ],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "cmake build",
+            "miDebuggerPath": "/usr/bin/gdb"
+        },        
     ]
 }
