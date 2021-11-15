@@ -57,6 +57,7 @@ add_executable( vpxenc
 
 add_executable( my_vpxenc 
                 ${CMAKE_SOURCE_DIR}/src/my_vpxenc.cpp
+                ${CMAKE_SOURCE_DIR}/src/vpxenc_api.c
                 ${CMAKE_SOURCE_DIR}/libvpx/args.c 
                 ${CMAKE_SOURCE_DIR}/libvpx/tools_common.c 
                 ${CMAKE_SOURCE_DIR}/libvpx/y4minput.c 

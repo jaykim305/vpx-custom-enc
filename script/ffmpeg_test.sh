@@ -1,8 +1,10 @@
 #!/bin/bash
 
+content="$1"
+
 #to make it CBR the order should be minrate==maxrate==bitrate
 
-ffmpeg -y -loglevel info -f rawvideo -pix_fmt yuv420p -s 1920x1080 -framerate 60 -i ~/Hearthstone.yuv \
+ffmpeg -y -loglevel info -f rawvideo -pix_fmt yuv420p -s 1920x1080 -framerate 60 -i ~/${content}.yuv \
                 -keyint_min 0 \
                 -s 1920x1080 \
                 -r 60 \
@@ -24,4 +26,4 @@ ffmpeg -y -loglevel info -f rawvideo -pix_fmt yuv420p -s 1920x1080 -framerate 60
                 -b:v 4000k \
                 -c:v libvpx-vp9 \
                 -error-resilient 1 \
-                ../output/ffmpeg_live_vp9.webm
+                ../output/ffmpeg_live_vp9_${content}.webm
