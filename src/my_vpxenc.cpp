@@ -10,7 +10,7 @@
 
 using namespace std;
 
-#define LOGGING 0
+#define LOGGING 1
 
 int g_argc;
 char** g_argv;
@@ -23,21 +23,21 @@ void set_stream_params(struct VpxEncoderConfig *global,
   // Handle codec specific options
     config->out_fn = g_argv[2];//"/home/jaykim305/vpx-custom-enc/output/mylive_vp9.webm";
     config->write_webm = 1;
-    config->cfg.g_threads = 8;
-    config->cfg.g_w = 1920;
-    config->cfg.g_h = 1080;
+    config->cfg.g_threads = 16;
+    config->cfg.g_w = 3840;
+    config->cfg.g_h = 2160;
     config->cfg.g_error_resilient = 1;
     config->cfg.rc_end_usage = VPX_CBR;
     config->cfg.g_lag_in_frames = 0;
     config->cfg.rc_dropframe_thresh = 0;
-    config->cfg.rc_target_bitrate = 4000;
+    config->cfg.rc_target_bitrate = atoi(g_argv[3]);
     config->cfg.rc_min_quantizer = 4;
     config->cfg.rc_max_quantizer = 48;
     config->cfg.kf_min_dist = 0;
     config->cfg.kf_max_dist = 90;
 
     // codec ctrls
-    set_arg_ctrl(config, ctrl_args_map, VP8E_SET_CPUUSED, 6);
+    set_arg_ctrl(config, ctrl_args_map, VP8E_SET_CPUUSED, 8);
     set_arg_ctrl(config, ctrl_args_map, VP8E_SET_STATIC_THRESHOLD, 0);
     set_arg_ctrl(config, ctrl_args_map, VP9E_SET_TILE_COLUMNS, 4);
     set_arg_ctrl(config, ctrl_args_map, VP9E_SET_FRAME_PARALLEL_DECODING, 1);
@@ -57,11 +57,12 @@ void set_global_config(struct VpxEncoderConfig *global) {
     global->framerate.num = 60000; //60fps
     global->framerate.den = 1000;
     global->quiet = 1;
+    global->show_psnr = 0;
 }
 
 int main(int argc, char *argv[]) {
     std::cout << "This is the custom vpxencoder!" << std::endl;
-    std::cout << "Usage: [input] [output]" << std::endl;
+    std::cout << "Usage: [input] [output] [bitrate]" << std::endl;
 
     g_argc = argc;
     g_argv = argv;
@@ -104,7 +105,7 @@ int main(int argc, char *argv[]) {
     int frame_avail = 1;
     int got_data = 0;
 
-#if LOGGGING
+#if LOGGING
     int64_t estimated_time_left = -1;
     int64_t average_rate = -1;
     int64_t lagged_count = 0;
@@ -117,7 +118,7 @@ int main(int argc, char *argv[]) {
         frame_avail = read_frame(&input, &raw);
         if (frame_avail) frames_in++;
    
-#if LOGGGING
+#if LOGGING
         struct vpx_usec_timer timer;    
         float fps = usec_to_fps(cx_time, frames_in);
         fprintf(stderr, "\rPass %d/%d ", global.pass+1, global.passes);
@@ -133,12 +134,12 @@ int main(int argc, char *argv[]) {
         got_data = 0;
         get_cx_data(stream, &global, &got_data);
 
-#if LOGGGING
+#if LOGGING
         vpx_usec_timer_start(&timer);
 #endif
         encode_frame(stream, &global, frame_avail ? &raw : NULL,
                                     frames_in);
-#if LOGGGING                                    
+#if LOGGING                                    
         vpx_usec_timer_mark(&timer);
         cx_time += vpx_usec_timer_elapsed(&timer);
 
@@ -160,10 +161,27 @@ int main(int argc, char *argv[]) {
         fflush(stdout);        
     }
 
+#if LOGGING     
+    fprintf(
+            stderr,
+            "\rframe %4d/%-4d %7" PRId64 "B %7" PRId64 "b/f %7" PRId64
+            "b/s %7" PRId64 " %s (%.2f fps)\n",
+            frames_in, stream->frames_out,
+            (int64_t)stream->nbytes,
+            frames_in ? (int64_t)(stream->nbytes * 8 / frames_in) : 0,
+            frames_in
+                ? (int64_t)stream->nbytes * 8 * (int64_t)global.framerate.num /
+                        global.framerate.den / frames_in
+                : 0,
+            stream->cx_time > 9999999 ? stream->cx_time / 1000 : stream->cx_time,
+            stream->cx_time > 9999999 ? "ms" : "us",
+            usec_to_fps(stream->cx_time, frames_in));
+#endif
+
     vpx_usec_timer_mark(&total_timer);
     cx_time = vpx_usec_timer_elapsed(&total_timer);
     float fps = usec_to_fps(cx_time, frames_in);
-    fprintf(stderr, "\rSummary: %7" PRId64 " %s %.2f %s \n",
+    fprintf(stderr, "\rTotal Tput Summary (read+encode): %7" PRId64 " %s %.2f %s \n",
             cx_time > 9999999 ? cx_time / 1000 : cx_time,
             cx_time > 9999999 ? "ms" : "us", fps >= 1.0 ? fps : fps * 60,
             fps >= 1.0 ? "fps" : "fpm");  
