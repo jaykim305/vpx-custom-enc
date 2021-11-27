@@ -1202,19 +1202,19 @@ static void show_stream_config(struct stream_state *stream,
                                struct VpxEncoderConfig *global,
                                struct VpxInputContext *input) {
 #define SHOW(field) \
-  fprintf(stderr, "    %-28s = %d\n", #field, stream->config.cfg.field)
+  fprintf(stdout, "    %-28s = %d\n", #field, stream->config.cfg.field)
 
   if (stream->index == 0) {
-    fprintf(stderr, "Codec: %s\n",
+    fprintf(stdout, "Codec: %s\n",
             vpx_codec_iface_name(global->codec->codec_interface()));
-    fprintf(stderr, "Source file: %s File Type: %s Format: %s\n",
+    fprintf(stdout, "Source file: %s File Type: %s Format: %s\n",
             input->filename, file_type_to_string(input->file_type),
             image_format_to_string(input->fmt));
   }
   if (stream->next || stream->index)
-    fprintf(stderr, "\nStream Index: %d\n", stream->index);
-  fprintf(stderr, "Destination file: %s\n", stream->config.out_fn);
-  fprintf(stderr, "Encoder parameters:\n");
+    fprintf(stdout, "\nStream Index: %d\n", stream->index);
+  fprintf(stdout, "Destination file: %s\n", stream->config.out_fn);
+  fprintf(stdout, "Encoder parameters:\n");
 
   SHOW(g_usage);
   SHOW(g_threads);
@@ -2020,7 +2020,7 @@ int main(int argc, const char **argv_) {
 
     if (!global.quiet) {
       FOREACH_STREAM(fprintf(
-          stderr,
+          stdout,
           "\rPass %d/%d frame %4d/%-4d %7" PRId64 "B %7" PRId64 "b/f %7" PRId64
           "b/s %7" PRId64 " %s (%.2f fps)\033[K\n",
           pass + 1, global.passes, frames_in, stream->frames_out,

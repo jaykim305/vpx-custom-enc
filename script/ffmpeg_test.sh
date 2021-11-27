@@ -1,13 +1,14 @@
 #!/bin/bash
 
 input="$1"
+type=sr
 # bitrate="$2"
 
 #to make it CBR the order should be minrate==maxrate==bitrate
 
 for bitrate in 10000 20000 30000
 do
-    ffmpeg -y -loglevel info -f rawvideo -pix_fmt yuv420p -s 3840x2160 -framerate 60 -i ${input}.yuv \
+    ffmpeg -y -loglevel info -f rawvideo -pix_fmt yuv420p -s 3840x2160 -framerate 60 -i ${input}/${type}.yuv \
                     -keyint_min 0 \
                     -s 3840x2160 \
                     -r 60 \
@@ -29,5 +30,5 @@ do
                     -b:v ${bitrate}k \
                     -c:v libvpx-vp9 \
                     -error-resilient 1 \
-                    ${input}_${bitrate}k_ffmpeg.webm
+                    ${input}/${type}_${bitrate}k_ffmpeg.webm
 done

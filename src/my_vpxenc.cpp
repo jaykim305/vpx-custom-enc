@@ -10,7 +10,7 @@
 
 using namespace std;
 
-#define LOGGING 1
+#define LOGGING 0
 
 int g_argc;
 char** g_argv;
