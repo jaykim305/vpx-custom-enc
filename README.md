@@ -1,6 +1,9 @@
 # vpx-custom-enc
 
 # run exp (for Hyunho)
+- Pre-requisites
+     - ffmpeg (make sure your ffmpeg is aliased to `ffmpeg` and callable in bash 
+     - python 3.x with numpy, math
 - Data placement
 ```
 ~/dataset-all
