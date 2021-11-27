@@ -28,6 +28,7 @@ bash run_all.sh ~/dataset-all
       |--------sr_{bitrate}_ffmpeg.log #logs quality
       |--------sr_{bitrate}_ffmpeg #contains pngs extracted from video
 ```
+- Result example
 ![](result-placement.png)
 - Exp result summary @ Intel Core i9-9900K, 3.6 GHz, 4 core,	1 CPU
 
