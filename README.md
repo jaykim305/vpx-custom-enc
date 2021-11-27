@@ -19,10 +19,13 @@ bash run_all.sh ~/dataset-all
       |--------sr_{bitrate}_vpx.webm
       |--------sr_{bitrate}_vpx.log #logs fps
       |--------sr_{bitrate}_vpx.log #logs quality
+      |--------sr_{bitrate}_vpx #contains pngs extracted from video
 
       |--------sr_{bitrate}_ffmpeg.webm
       |--------sr_{bitrate}_ffmpeg.log #logs quality
+      |--------sr_{bitrate}_ffmpeg #contains pngs extracted from video
 ```
+![](result-placement.png)
 - Exp result summary @ Intel Core i9-9900K, 3.6 GHz, 4 core,	1 CPU
 
 FPS            |  Quality
