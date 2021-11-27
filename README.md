@@ -1,6 +1,33 @@
 # vpx-custom-enc
 
+# run exp (for Hyunho)
+- Data placement
+```
+~/dataset-all
+      |--------sr #should contain quality.json
+      |--------hr
+```
+- Run test with one click : test on (10,20,30M) bitrates using ffmpeg/vpxenc
+```
+cd script
+bash run_all.sh ~/dataset-all
+```
+- Result placements
+```
+~/dataset-all
+      |--------sr_yuv
+      |--------sr_{bitrate}_vpx.webm
+      |--------sr_{bitrate}_vpx.log #logs fps
+      |--------sr_{bitrate}_vpx.log #logs quality
 
+      |--------sr_{bitrate}_ffmpeg.webm
+      |--------sr_{bitrate}_ffmpeg.log #logs quality
+```
+- Exp result summary @ Intel Core i9-9900K, 3.6 GHz, 4 core,	1 CPU
+
+FPS            |  Quality
+:-------------------------:|:-------------------------:
+![](vpx-fps.png)  |  ![](vpx-quality.png)
 
 # testing videos  
 ```
