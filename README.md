@@ -2,8 +2,8 @@
 
 # run exp (for Hyunho)
 - Pre-requisites
-     - ffmpeg (make sure your ffmpeg is aliased to `ffmpeg` and callable in bash 
-     - python 3.x with numpy, math
+     - `ffmpeg` (if you are  using ffmpeg binary/docker, make sure your ffmpeg is aliased to `ffmpeg` and callable in bash) 
+     - `python 3.x` with `numpy`, `math`
 - Data placement
 ```
 ~/dataset-all
@@ -21,12 +21,12 @@ bash run_all.sh ~/dataset-all
       |--------sr_yuv
       |--------sr_{bitrate}_vpx.webm
       |--------sr_{bitrate}_vpx.log #logs fps
-      |--------sr_{bitrate}_vpx.log #logs quality
-      |--------sr_{bitrate}_vpx #contains pngs extracted from video
+      |--------sr_{bitrate}_vpx_quality.log #logs quality
+      |--------sr_{bitrate}_vpx #contains pngs extracted from vpx encoded video
 
       |--------sr_{bitrate}_ffmpeg.webm
-      |--------sr_{bitrate}_ffmpeg.log #logs quality
-      |--------sr_{bitrate}_ffmpeg #contains pngs extracted from video
+      |--------sr_{bitrate}_ffmpeg_quality.log #logs quality
+      |--------sr_{bitrate}_ffmpeg #contains pngs extracted from ffmpeg video
 ```
 - Result example
 ![](result-placement.png)
