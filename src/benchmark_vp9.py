@@ -9,9 +9,9 @@ if __name__ == '__main__':
     parser.add_argument('--logdir', type=str, required=True)
     args = parser.parse_args()
 
-    speed = [5, 6, 7, 8]
-    tile_columns = [0, 1, 2, 3, 4, 5]
-    threads = [1, 2, 4, 8, 16, 32, 64]
+    speed = [7, 8, 9]
+    tile_columns = [3, 4, 5]
+    threads = [8, 16, 32, 64]
     
     prefix = args.input.find('.yuv');
     output = f"{args.input[:prefix]}_{args.bitrate}.webm"

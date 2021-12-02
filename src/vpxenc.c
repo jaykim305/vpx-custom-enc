@@ -1777,8 +1777,12 @@ int main(int argc, const char **argv_) {
       tile_col = streams->config.arg_ctrls[argidx][1];
     }
   }
-
-  sprintf(log_filename, "thread%d_cpu%d_tile%d.log", streams->config.cfg.g_threads, cpu_used, tile_col);
+  if (strcmp(global.codec->name, "vp8") == 0){
+    sprintf(log_filename, "thread%d_cpu%d.log", streams->config.cfg.g_threads, cpu_used);
+  }
+  else {
+    sprintf(log_filename, "thread%d_cpu%d_tile%d.log", streams->config.cfg.g_threads, cpu_used, tile_col);
+  }
   streams->log = fopen(log_filename, "w");
   /* Decide if other chroma subsamplings than 4:2:0 are supported */
   if (global.codec->fourcc == VP9_FOURCC) input.only_i420 = 0;
@@ -2109,6 +2113,7 @@ end:
   vpx_img_free(&raw);
   free(argv);
   fclose(streams->log);
+  free(log_filename);
   free(streams);
   return res ? EXIT_FAILURE : EXIT_SUCCESS;
 }
