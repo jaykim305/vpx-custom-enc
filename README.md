@@ -44,7 +44,7 @@ FPS            |  Quality
 
 VP8 FPS            |  VP9 FPS
 :-------------------------:|:-------------------------:
-![](./result/vp8-fps-bmark-aws.png)  |  ![](./result/vp9-fps-bmakr-aws.png)
+![](./result/vp8-fps-bmark-aws.png)  |  ![](./result/vp9-fps-bmark-aws.png)
 # testing videos  
 ```
 cd script
