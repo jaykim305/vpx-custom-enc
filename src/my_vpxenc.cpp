@@ -23,7 +23,7 @@ void set_stream_params(struct VpxEncoderConfig *global,
   // Handle codec specific options
     config->out_fn = g_argv[2];//"/home/jaykim305/vpx-custom-enc/output/mylive_vp9.webm";
     config->write_webm = 1;
-    config->cfg.g_threads = 16;
+    config->cfg.g_threads = 32;
     config->cfg.g_w = 3840;
     config->cfg.g_h = 2160;
     config->cfg.g_error_resilient = 1;
@@ -37,7 +37,7 @@ void set_stream_params(struct VpxEncoderConfig *global,
     config->cfg.kf_max_dist = 90;
 
     // codec ctrls
-    set_arg_ctrl(config, ctrl_args_map, VP8E_SET_CPUUSED, 8);
+    set_arg_ctrl(config, ctrl_args_map, VP8E_SET_CPUUSED, 9);
     set_arg_ctrl(config, ctrl_args_map, VP8E_SET_STATIC_THRESHOLD, 0);
     set_arg_ctrl(config, ctrl_args_map, VP9E_SET_TILE_COLUMNS, 4);
     set_arg_ctrl(config, ctrl_args_map, VP9E_SET_FRAME_PARALLEL_DECODING, 1);
