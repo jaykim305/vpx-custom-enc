@@ -30,12 +30,21 @@ bash run_all.sh ~/dataset-all
 ```
 - Result example
 ![](result-placement.png)
-- Exp result summary @ Intel Core i9-9900K, 3.6 GHz, 4 core,	1 CPU
+- Experiment result summary @ Intel Core i9-9900K, 3.6 GHz, 4 core,	1 CPU (iris1.kaist.ac.kr)
 
 FPS            |  Quality
 :-------------------------:|:-------------------------:
 ![](vpx-fps.png)  |  ![](vpx-quality.png)
 
+- Experiment result summary @ AWS g4dn.metal
+  
+FPS            |  Quality
+:-------------------------:|:-------------------------:
+![](vp9-fps-aws.png)  |  ![](vp9-quality-aws.png)
+
+VP8 FPS            |  VP9 FPS
+:-------------------------:|:-------------------------:
+![](vp8-fps-bmark-aws.png)  |  ![](vp9-fps-bmakr-aws.png)
 # testing videos  
 ```
 cd script
