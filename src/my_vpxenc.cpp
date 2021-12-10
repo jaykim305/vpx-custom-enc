@@ -23,7 +23,7 @@ void set_stream_params(struct VpxEncoderConfig *global,
   // Handle codec specific options
     config->out_fn = g_argv[2];//"/home/jaykim305/vpx-custom-enc/output/mylive_vp9.webm";
     config->write_webm = 1;
-    config->cfg.g_threads = 32;
+    config->cfg.g_threads = 16;
     config->cfg.g_w = 3840;
     config->cfg.g_h = 2160;
     config->cfg.g_error_resilient = 1;
