@@ -1,6 +1,6 @@
 # vpx-custom-enc
 
-# run exp (for Hyunho)
+# run exp
 - Pre-requisites
      - `ffmpeg` (if you are  using ffmpeg binary/docker, make sure your ffmpeg is aliased to `ffmpeg` and callable in bash) 
      - `python 3.x` with `numpy`, `math`
